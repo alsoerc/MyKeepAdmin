@@ -40,13 +40,12 @@ public class PnlSolicitudes extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabelSolicitudesPrestamos = new javax.swing.JLabel();
         panelLista = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tablaSolicitudes = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btnCancel = new rsbuttom.RSButtonMetro();
         btnUpdate = new rsbuttom.RSButtonMetro();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaSolicitudes = new javax.swing.JTable();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -69,47 +68,6 @@ public class PnlSolicitudes extends javax.swing.JPanel {
 
         panelLista.setBackground(java.awt.Color.white);
 
-        jScrollPane1.setBackground(java.awt.Color.white);
-        jScrollPane1.setBorder(null);
-
-        tablaSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Estado", "Còdigo de Confirmación", "Código de Devolución ", "Nombre", "Apellidos", "Matrícula", "Aula", "Edificio", "Horario", "Grupo", "Serial"
-            }
-        ));
-        tablaSolicitudes.setRowHeight(25);
-        tablaSolicitudes.setRowSelectionAllowed(false);
-        tablaSolicitudes.setSelectionBackground(new java.awt.Color(204, 204, 255));
-        jScrollPane2.setViewportView(tablaSolicitudes);
-        if (tablaSolicitudes.getColumnModel().getColumnCount() > 0) {
-            tablaSolicitudes.getColumnModel().getColumn(1).setPreferredWidth(110);
-            tablaSolicitudes.getColumnModel().getColumn(2).setPreferredWidth(120);
-        }
-
-        jLayeredPane1.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 945, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jScrollPane1.setViewportView(jLayeredPane1);
-
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -131,20 +89,44 @@ public class PnlSolicitudes extends javax.swing.JPanel {
         });
         jPanel1.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 160, -1));
 
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
+        tablaSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Estado", "Còdigo de Confirmación", "Código de Devolución ", "Nombre", "Apellidos", "Matrícula", "Aula", "Edificio", "Horario", "Grupo", "Serial"
+            }
+        ));
+        tablaSolicitudes.setRowHeight(25);
+        tablaSolicitudes.setRowSelectionAllowed(false);
+        tablaSolicitudes.setSelectionBackground(new java.awt.Color(204, 204, 255));
+        jScrollPane2.setViewportView(tablaSolicitudes);
+        if (tablaSolicitudes.getColumnModel().getColumnCount() > 0) {
+            tablaSolicitudes.getColumnModel().getColumn(1).setPreferredWidth(110);
+            tablaSolicitudes.getColumnModel().getColumn(2).setPreferredWidth(120);
+        }
+
+        jPanel4.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
         javax.swing.GroupLayout panelListaLayout = new javax.swing.GroupLayout(panelLista);
         panelLista.setLayout(panelListaLayout);
         panelListaLayout.setHorizontalGroup(
             panelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 972, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 972, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelListaLayout.setVerticalGroup(
             panelListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListaLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(panelListaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -191,10 +173,9 @@ public class PnlSolicitudes extends javax.swing.JPanel {
     private rsbuttom.RSButtonMetro btnCancel;
     private rsbuttom.RSButtonMetro btnUpdate;
     private javax.swing.JLabel jLabelSolicitudesPrestamos;
-    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panelLista;
     private javax.swing.JTable tablaSolicitudes;
