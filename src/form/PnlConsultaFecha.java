@@ -58,12 +58,11 @@ public class PnlConsultaFecha extends javax.swing.JPanel {
         p.put("text.today", "Hoy");
         p.put("text.month", "Mes");
         p.put("text.year", "Año");
-        datePanel = new JDatePanelImpl(model,p);
-        datePicker = new JDatePickerImpl(datePanel,new DateLabelFormatter() );
+        datePanel = new JDatePanelImpl(model, p);
+        datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
         datePicker.setSize(200, 300);
         panelBotones.add(datePicker);
-        
-        
+
     }
 
     /**
@@ -81,8 +80,8 @@ public class PnlConsultaFecha extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tHistorialCarrera = new javax.swing.JTable();
         panelBotones = new javax.swing.JPanel();
-        btnBuscar = new javax.swing.JButton();
-        btnGenerarPdf = new javax.swing.JButton();
+        btnGenerarPdf = new rsbuttom.RSButtonMetro();
+        btnBuscar = new rsbuttom.RSButtonMetro();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -124,17 +123,19 @@ public class PnlConsultaFecha extends javax.swing.JPanel {
 
         panelBotones.setBackground(java.awt.Color.white);
 
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
         btnGenerarPdf.setText("Generar PDF");
+        btnGenerarPdf.setFont(new java.awt.Font("Quicksand-Regular.ttf", 1, 12)); // NOI18N
         btnGenerarPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerarPdfActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.setFont(new java.awt.Font("Quicksand-Regular.ttf", 1, 12)); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -143,11 +144,14 @@ public class PnlConsultaFecha extends javax.swing.JPanel {
         panelBotonesLayout.setHorizontalGroup(
             panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBotonesLayout.createSequentialGroup()
-                .addGap(387, 387, 387)
-                .addComponent(btnBuscar)
-                .addGap(35, 35, 35)
-                .addComponent(btnGenerarPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(269, Short.MAX_VALUE))
+                .addGap(542, 542, 542)
+                .addComponent(btnGenerarPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(325, Short.MAX_VALUE))
+            .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelBotonesLayout.createSequentialGroup()
+                    .addGap(417, 417, 417)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(450, Short.MAX_VALUE)))
         );
 
         panelBotonesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBuscar, btnGenerarPdf});
@@ -155,11 +159,14 @@ public class PnlConsultaFecha extends javax.swing.JPanel {
         panelBotonesLayout.setVerticalGroup(
             panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBotonesLayout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(btnBuscar)
-                    .addComponent(btnGenerarPdf))
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addComponent(btnGenerarPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBotonesLayout.createSequentialGroup()
+                    .addContainerGap(15, Short.MAX_VALUE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -178,17 +185,10 @@ public class PnlConsultaFecha extends javax.swing.JPanel {
                 .addComponent(jLabelSolicitudesPrestamos, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(panelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelLista, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(panelLista, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        limpiarTabla();
-        date = (Date) datePicker.getModel().getValue();
-        sqlDate = new java.sql.Date(date.getTime());
-        showData(sqlDate);
-    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnGenerarPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPdfActionPerformed
         if (modelo.getRowCount() > 0) {
@@ -201,6 +201,14 @@ public class PnlConsultaFecha extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "No existen registros", "Aviso", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGenerarPdfActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        limpiarTabla();
+        date = (Date) datePicker.getModel().getValue();
+        sqlDate = new java.sql.Date(date.getTime());
+        showData(sqlDate);
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void showData(java.sql.Date fecha) {
         records = data.getRecordsFecha(fecha);
@@ -222,7 +230,7 @@ public class PnlConsultaFecha extends javax.swing.JPanel {
     private void crearPdf() throws FileNotFoundException, DocumentException {
         if (!records.isEmpty()) {
 
-            String ruta = "/home/alsorc/Documents/Reportes/reporte_fecha_" +sqlDate+ ".pdf";
+            String ruta = "/home/alsorc/Documents/Reportes/reporte_fecha_" + sqlDate + ".pdf";
             Document documento = new Document(PageSize.A4.rotate(), 0, 0, 8, 8);
             java.io.FileOutputStream ficheroPdf = new java.io.FileOutputStream(ruta);
             PdfWriter writer = PdfWriter.getInstance(documento, ficheroPdf);
@@ -257,36 +265,19 @@ public class PnlConsultaFecha extends javax.swing.JPanel {
             }
             documento.add(tabla);
             documento.close();
-            JOptionPane.showMessageDialog(null, "Reporte creado");
+            JOptionPane.showMessageDialog(null, "Reporte creado","Aviso", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "No existen registros para reporte");
+            JOptionPane.showMessageDialog(null, "No existen registros para reporte","Aviso", JOptionPane.ERROR_MESSAGE);
         }
 
     }
-
-    private void loadData() {
-        System.out.println("Mostrando...");
-        DefaultCategoryDataset data = new DefaultCategoryDataset();
-
-        final String C1 = "Contaduría";
-        final String C2 = "Administración";
-
-        data.addValue(100, C1, "periodo a evaluar");
-        data.addValue(50, C2, "periodo a evaluar");
-
-        JFreeChart grafica = ChartFactory.createBarChart3D("DUMMY TITTLE", "Carreras", "Cantidad", data, PlotOrientation.VERTICAL, true, true, false);
-        ChartPanel contenedor = new ChartPanel(grafica);
-        panelLista.add(contenedor, BorderLayout.CENTER);
-        panelLista.validate();
-    }
-
     private void limpiarTabla() {
         modelo.setRowCount(0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnGenerarPdf;
+    private rsbuttom.RSButtonMetro btnBuscar;
+    private rsbuttom.RSButtonMetro btnGenerarPdf;
     private javax.swing.JLabel jLabelSolicitudesPrestamos;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

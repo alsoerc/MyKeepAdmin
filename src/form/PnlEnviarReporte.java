@@ -48,13 +48,13 @@ public class PnlEnviarReporte extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabelSolicitudesPrestamos = new javax.swing.JLabel();
         panelBotones = new javax.swing.JPanel();
-        btnBuscarArchivo = new javax.swing.JButton();
         txtRuta = new javax.swing.JTextField();
-        btnEnviarMail = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
         cmbCorreo = new javax.swing.JComboBox<>();
+        btnEnviarMail = new rsbuttom.RSButtonMetro();
+        btnEnviarMail1 = new rsbuttom.RSButtonMetro();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -78,28 +78,18 @@ public class PnlEnviarReporte extends javax.swing.JPanel {
 
         panelBotones.setBackground(java.awt.Color.white);
 
-        btnBuscarArchivo.setText("Buscar");
-        btnBuscarArchivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarArchivoActionPerformed(evt);
-            }
-        });
-
         txtRuta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRutaActionPerformed(evt);
             }
         });
 
-        btnEnviarMail.setText("Enviar");
-        btnEnviarMail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnviarMailActionPerformed(evt);
-            }
-        });
-
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Dirección de correo destino");
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Selecciona reporte a enviar");
 
         txtCorreo.addActionListener(new java.awt.event.ActionListener() {
@@ -111,51 +101,63 @@ public class PnlEnviarReporte extends javax.swing.JPanel {
         cmbCorreo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "@gmail.com", "@hotmail.com", "@outlook.mx", "@outlook.es", "@yahoo.com" }));
         cmbCorreo.setToolTipText("Indique el tipo de correo de destino");
 
+        btnEnviarMail.setText("Enviar");
+        btnEnviarMail.setFont(new java.awt.Font("Quicksand-Regular.ttf", 1, 12)); // NOI18N
+        btnEnviarMail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarMailActionPerformed(evt);
+            }
+        });
+
+        btnEnviarMail1.setText("Buscar");
+        btnEnviarMail1.setFont(new java.awt.Font("Quicksand-Regular.ttf", 1, 12)); // NOI18N
+        btnEnviarMail1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarMail1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelBotonesLayout = new javax.swing.GroupLayout(panelBotones);
         panelBotones.setLayout(panelBotonesLayout);
         panelBotonesLayout.setHorizontalGroup(
             panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBotonesLayout.createSequentialGroup()
+                .addGap(268, 268, 268)
                 .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(btnEnviarMail, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(btnEnviarMail1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelBotonesLayout.createSequentialGroup()
-                        .addGap(340, 340, 340)
-                        .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(btnEnviarMail, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)))
-                    .addGroup(panelBotonesLayout.createSequentialGroup()
-                        .addGap(280, 280, 280)
-                        .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelBotonesLayout.createSequentialGroup()
-                                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cmbCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelBotonesLayout.createSequentialGroup()
-                                .addComponent(btnBuscarArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(panelBotonesLayout.createSequentialGroup()
-                        .addGap(342, 342, 342)
-                        .addComponent(jLabel2)))
-                .addContainerGap(291, Short.MAX_VALUE))
+                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        panelBotonesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnEnviarMail, btnEnviarMail1});
+
         panelBotonesLayout.setVerticalGroup(
             panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBotonesLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel2)
+                .addGap(24, 24, 24)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuscarArchivo)
-                    .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addComponent(btnEnviarMail1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addComponent(btnEnviarMail)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnEnviarMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -176,20 +178,23 @@ public class PnlEnviarReporte extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarArchivoActionPerformed
-        int seleccion = fc.showOpenDialog(jPanel2);
-        if (seleccion == JFileChooser.APPROVE_OPTION) {
-            //Seleccionamos el fichero
-            File fichero = fc.getSelectedFile();
-
-            //Ecribe la ruta del fichero seleccionado en el campo de texto
-            txtRuta.setText(fichero.getAbsolutePath());
-        }
-    }//GEN-LAST:event_btnBuscarArchivoActionPerformed
-
     private void txtRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRutaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRutaActionPerformed
+
+    private boolean validarCorreo(String correo) {
+        boolean isValid = true;
+        for (int i = 0; i < correo.length(); i++) {
+            if (correo.charAt(i) == '@') {
+                isValid = false;
+            }
+        }
+        return isValid;
+    }
+
+    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCorreoActionPerformed
 
     private void btnEnviarMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarMailActionPerformed
         if (!"".equals(txtRuta.getText())) {
@@ -208,19 +213,16 @@ public class PnlEnviarReporte extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnEnviarMailActionPerformed
 
-    private boolean validarCorreo(String correo) {
-        boolean isValid = true;
-        for (int i = 0; i < correo.length(); i++) {
-            if (correo.charAt(i) == '@') {
-                isValid = false;
-            }
-        }
-        return isValid;
-    }
+    private void btnEnviarMail1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarMail1ActionPerformed
+        int seleccion = fc.showOpenDialog(jPanel2);
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            //Seleccionamos el fichero
+            File fichero = fc.getSelectedFile();
 
-    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCorreoActionPerformed
+            //Ecribe la ruta del fichero seleccionado en el campo de texto
+            txtRuta.setText(fichero.getAbsolutePath());
+        }
+    }//GEN-LAST:event_btnEnviarMail1ActionPerformed
 
 //    private void loadData() {
 //        System.out.println("Mostrando...");
@@ -239,8 +241,8 @@ public class PnlEnviarReporte extends javax.swing.JPanel {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscarArchivo;
-    private javax.swing.JButton btnEnviarMail;
+    private rsbuttom.RSButtonMetro btnEnviarMail;
+    private rsbuttom.RSButtonMetro btnEnviarMail1;
     private javax.swing.JComboBox<String> cmbCorreo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

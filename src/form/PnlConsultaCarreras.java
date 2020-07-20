@@ -60,10 +60,10 @@ public class PnlConsultaCarreras extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tHistorialCarrera = new javax.swing.JTable();
         panelBotones = new javax.swing.JPanel();
-        btnBuscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cmbCarrera = new javax.swing.JComboBox<>();
-        btnGenerarPdf = new javax.swing.JButton();
+        btnEnviarMail1 = new rsbuttom.RSButtonMetro();
+        btnEnviarMail2 = new rsbuttom.RSButtonMetro();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -105,21 +105,24 @@ public class PnlConsultaCarreras extends javax.swing.JPanel {
 
         panelBotones.setBackground(java.awt.Color.white);
 
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Carrera");
 
         cmbCarrera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Académicos", "Contaduría", "Administración", "Gestion de negocios", "Sistemas computacionales", "Informática", "Ingeniería de software" }));
 
-        btnGenerarPdf.setText("Generar PDF");
-        btnGenerarPdf.addActionListener(new java.awt.event.ActionListener() {
+        btnEnviarMail1.setText("Generar PDF");
+        btnEnviarMail1.setFont(new java.awt.Font("Quicksand-Regular.ttf", 1, 12)); // NOI18N
+        btnEnviarMail1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGenerarPdfActionPerformed(evt);
+                btnEnviarMail1ActionPerformed(evt);
+            }
+        });
+
+        btnEnviarMail2.setText("Buscar");
+        btnEnviarMail2.setFont(new java.awt.Font("Quicksand-Regular.ttf", 1, 12)); // NOI18N
+        btnEnviarMail2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarMail2ActionPerformed(evt);
             }
         });
 
@@ -132,24 +135,24 @@ public class PnlConsultaCarreras extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(46, 46, 46)
                 .addComponent(cmbCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(btnBuscar)
-                .addGap(35, 35, 35)
-                .addComponent(btnGenerarPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(269, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnEnviarMail2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnEnviarMail1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(391, Short.MAX_VALUE))
         );
 
-        panelBotonesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBuscar, btnGenerarPdf});
+        panelBotonesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnEnviarMail1, btnEnviarMail2});
 
         panelBotonesLayout.setVerticalGroup(
             panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBotonesLayout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(cmbCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(btnBuscar)
-                    .addComponent(btnGenerarPdf))
+                    .addComponent(btnEnviarMail1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEnviarMail2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -170,26 +173,26 @@ public class PnlConsultaCarreras extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(panelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelLista, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))
+                .addComponent(panelLista, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        limpiarTabla();
-        showData(cmbCarrera.getSelectedIndex());
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void btnGenerarPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPdfActionPerformed
+    private void btnEnviarMail1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarMail1ActionPerformed
         if (modelo.getRowCount() > 0) {
             try {
                 crearPdf();
             } catch (FileNotFoundException | DocumentException ex) {
                 Logger.getLogger(PnlConsultaCarreras.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "No existen registros", "Aviso", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnGenerarPdfActionPerformed
+    }//GEN-LAST:event_btnEnviarMail1ActionPerformed
+
+    private void btnEnviarMail2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarMail2ActionPerformed
+        limpiarTabla();
+        showData(cmbCarrera.getSelectedIndex());
+    }//GEN-LAST:event_btnEnviarMail2ActionPerformed
 
     private void showData(int carrera) {
         records = data.getRecords(carrera);
@@ -246,27 +249,11 @@ public class PnlConsultaCarreras extends javax.swing.JPanel {
             }
             documento.add(tabla);
             documento.close();
-            JOptionPane.showMessageDialog(null, "Reporte creado");
+            JOptionPane.showMessageDialog(null, "Reporte creado","Aviso", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "No existen registros para reporte");
+            JOptionPane.showMessageDialog(null, "No existen registros para reporte","Error", JOptionPane.ERROR_MESSAGE);
         }
 
-    }
-
-    private void loadData() {
-        System.out.println("Mostrando...");
-        DefaultCategoryDataset data = new DefaultCategoryDataset();
-
-        final String C1 = "Contaduría";
-        final String C2 = "Administración";
-
-        data.addValue(100, C1, "periodo a evaluar");
-        data.addValue(50, C2, "periodo a evaluar");
-
-        JFreeChart grafica = ChartFactory.createBarChart3D("DUMMY TITTLE", "Carreras", "Cantidad", data, PlotOrientation.VERTICAL, true, true, false);
-        ChartPanel contenedor = new ChartPanel(grafica);
-        panelLista.add(contenedor, BorderLayout.CENTER);
-        panelLista.validate();
     }
 
     private void limpiarTabla() {
@@ -274,8 +261,8 @@ public class PnlConsultaCarreras extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnGenerarPdf;
+    private rsbuttom.RSButtonMetro btnEnviarMail1;
+    private rsbuttom.RSButtonMetro btnEnviarMail2;
     private javax.swing.JComboBox<String> cmbCarrera;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelSolicitudesPrestamos;
