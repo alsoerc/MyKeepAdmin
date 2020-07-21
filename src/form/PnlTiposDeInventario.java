@@ -34,6 +34,7 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
         getInventario();
         validarId();
         ocultar();
+        buscar();
     }
 
     public void holders() {
@@ -53,8 +54,7 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
         jLabelSolicitudesPrestamos = new javax.swing.JLabel();
         pnlDatosIngresar = new javax.swing.JPanel();
         txtBuscarPorSerialEnLista = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        labelid = new javax.swing.JLabel();
+        label = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         btnDelete = new rsbuttom.RSButtonMetro();
         btnListar = new rsbuttom.RSButtonMetro();
@@ -65,6 +65,8 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
         txtEstado = new javax.swing.JTextField();
         labelestado = new javax.swing.JLabel();
         btnActualizar = new rsbuttom.RSButtonMetro();
+        jLabel2 = new javax.swing.JLabel();
+        labelid1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaSolicitudes = new javax.swing.JTable();
@@ -95,19 +97,11 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
 
         txtBuscarPorSerialEnLista.setBackground(new java.awt.Color(226, 216, 216));
         txtBuscarPorSerialEnLista.setBorder(null);
-        pnlDatosIngresar.add(txtBuscarPorSerialEnLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 60, 200, 20));
+        pnlDatosIngresar.add(txtBuscarPorSerialEnLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, 200, 20));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu/barraBusqueda.png"))); // NOI18N
-        jLabel1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jLabel1KeyTyped(evt);
-            }
-        });
-        pnlDatosIngresar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, -1, 41));
-
-        labelid.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        labelid.setText("ID");
-        pnlDatosIngresar.add(labelid, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 50, -1));
+        label.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        label.setText("Buscar equipo por id");
+        pnlDatosIngresar.add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 40, 270, -1));
         pnlDatosIngresar.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 92, -1));
 
         btnDelete.setText("Eliminar");
@@ -159,6 +153,18 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
             }
         });
         pnlDatosIngresar.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 90, 26));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu/barraBusqueda.png"))); // NOI18N
+        jLabel2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jLabel2KeyTyped(evt);
+            }
+        });
+        pnlDatosIngresar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 60, 280, 60));
+
+        labelid1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        labelid1.setText("ID");
+        pnlDatosIngresar.add(labelid1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 50, -1));
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -252,7 +258,6 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnDeleteActionPerformed
 
- 
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         cleanTable();
@@ -260,7 +265,7 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnListarActionPerformed
 
-    
+
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         txtId.setEnabled(true);
         btnDelete.setEnabled(true);
@@ -270,10 +275,6 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
         mostrar();
     }//GEN-LAST:event_btnEditar1ActionPerformed
 
-    private void jLabel1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel1KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel1KeyTyped
-
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         if (updateEquipo(Integer.parseInt(txtId.getText()), txtEstado.getText(), txtSerial.getText())) {
             JOptionPane.showMessageDialog(null, "Registro actualizado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -282,6 +283,22 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
             ocultar();
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void jLabel2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel2KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel2KeyTyped
+
+    private void buscar() {
+        txtBuscarPorSerialEnLista.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                if (ke.getKeyChar() == ke.VK_ENTER) {
+                    cleanTable();
+                    getInventarioOne(Integer.parseInt(txtBuscarPorSerialEnLista.getText()));
+                }
+            }
+        });
+    }
 
     private boolean updateEquipo(int id, String estado, String Serial) {
         boolean isValid = false;
@@ -309,7 +326,18 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
                 }
             }
         });
+        txtBuscarPorSerialEnLista.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent ke) {
+                if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == ke.VK_BACK_SPACE) {
+                    txtBuscarPorSerialEnLista.setEditable(true);
+                } else {
+                    txtBuscarPorSerialEnLista.setEditable(false);
+                }
+            }
+        });
     }
+
+ 
 
     private void ocultar() {
         txtId.setEnabled(false);
@@ -325,6 +353,12 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
         txtSerial.setEnabled(true);
         btnActualizar.setEnabled(true);
         btnDelete.setEnabled(true);
+    }
+
+    private void getInventarioOne(int id) {
+        Equipo e = getOneEquipo(id);
+        System.out.println(e.getIdEquipo() + " " + setTipoEquipo(e.getIdTipoEquipo()) + " " + e.getSerial() + " " + e.getEstado());
+        modelo.addRow(new Object[]{e.getIdEquipo(), setTipoEquipo(e.getIdTipoEquipo()), e.getSerial(), e.getEstado().toUpperCase()});
     }
 
     private void getInventario() {
@@ -367,13 +401,14 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
     private rsbuttom.RSButtonMetro btnEditar1;
     private rsbuttom.RSButtonMetro btnEliminar;
     private rsbuttom.RSButtonMetro btnListar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelSolicitudesPrestamos;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel label;
     private javax.swing.JLabel labelestado;
-    private javax.swing.JLabel labelid;
+    private javax.swing.JLabel labelid1;
     private javax.swing.JLabel labelserial;
     private javax.swing.JPanel pnlDatosIngresar;
     private javax.swing.JTable tablaSolicitudes;
