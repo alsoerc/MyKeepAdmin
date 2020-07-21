@@ -110,16 +110,16 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuConsultaPorHorario = new MenuItem(iconSubMenu, "Reporte por horario", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                try {
-                    new CambiaPanel(panelBody, new form.PnlConsultaFecha());
-                } catch (FontFormatException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
+//        MenuItem menuConsultaPorHorario = new MenuItem(iconSubMenu, "Reporte por horario", new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent ae) {
+//                try {
+//                    new CambiaPanel(panelBody, new form.PnlConsultaFecha());
+//                } catch (FontFormatException ex) {
+//                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        });
 
         MenuItem menuConsultaPorDia = new MenuItem(iconSubMenu, "Reporte por fecha", new ActionListener() {
             @Override
@@ -172,7 +172,7 @@ public class Main extends javax.swing.JFrame {
 
         MenuItem menuPrestamos = new MenuItem(iconPrestamos, "Préstamos", null, menuPrestamoUno, menuPrestamoDos, menuPrestamoTres, menuPrestamoCuatro);
         MenuItem menuInventario = new MenuItem(iconInventario, "Inventario", null, menuInventarioUno, menuInventarioDos);
-        MenuItem menuConsultas = new MenuItem(iconConsulta, "Reportes", null, menuConsultaPorCarrera, menuConsultaPorHorario, menuConsultaPorDia, menuEnviarReporte, menuConsultaPorEdificio, menuConsultaPorTipoEquipo);
+        MenuItem menuConsultas = new MenuItem(iconConsulta, "Reportes", null, menuConsultaPorCarrera, /*menuConsultaPorHorario*/ menuConsultaPorDia, menuEnviarReporte, menuConsultaPorEdificio, menuConsultaPorTipoEquipo);
         addMenu(menuPrestamos, menuInventario, menuConsultas);
     }
 

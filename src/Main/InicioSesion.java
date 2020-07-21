@@ -5,12 +5,15 @@
  */
 package Main;
 
+import api.ClienteUsuario;
+import com.google.common.hash.Hashing;
 import java.awt.Color;
 import java.awt.FontFormatException;
-import java.awt.Image;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import models.Usuario;
 
 /**
  *
@@ -18,13 +21,16 @@ import javax.swing.ImageIcon;
  */
 public class InicioSesion extends javax.swing.JFrame {
 
+    private ClienteUsuario api;
+
     /**
      * Creates new form InicioSesion
      */
     public InicioSesion() {
         initComponents();
-        setBackground(new Color(0,0,0,0));
-        setBounds(500, 70, 400,600);
+        api = new ClienteUsuario();
+        setBackground(new Color(0, 0, 0, 0));
+        setBounds(500, 70, 400, 600);
         this.ojoHide.setVisible(false);
     }
 
@@ -45,6 +51,7 @@ public class InicioSesion extends javax.swing.JFrame {
         btn_aceptar = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -108,6 +115,14 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu/iconInicioSesionFull.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 600));
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 331, 180, 40));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 366, 600));
 
         pack();
@@ -118,15 +133,36 @@ public class InicioSesion extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabel1MouseClicked
 
+    private  String encryptPasword(String pass){
+        String sha256hex = Hashing.sha256()
+                .hashString(pass, StandardCharsets.UTF_8)
+                .toString();
+        return sha256hex;
+    }
+    
     private void btn_aceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_aceptarMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        try {
-            new Main().setVisible(true);
-        } catch (FontFormatException ex) {
-            Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+        if (txt_usuario.getText().equals("admin") && pssword.getText().equals("admin")
+            || checkUser(txt_usuario.getText(), pssword.getText())) {
+            this.dispose();
+            try {
+                new Main().setVisible(true);
+            } catch (FontFormatException ex) {
+                Logger.getLogger(InicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuario no válido", "Aviso", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btn_aceptarMouseClicked
+
+    private boolean checkUser(String matricula, String contraseña) {
+        boolean isValid = false;
+        Usuario oneByID = api.getOneByID(Usuario.class, matricula);
+        if (oneByID.getContrasena().equals(encryptPasword(contraseña)) && oneByID.getIdTipoUsuario() == 3) {
+            JOptionPane.showMessageDialog(null, "Bienvenido " + oneByID.getNombre() + " " + oneByID.getApellidoMaterno(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            isValid = true;
+        }
+        return isValid;
+    }
 
     private void txt_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usuarioActionPerformed
         // TODO add your handling code here:
@@ -140,7 +176,7 @@ public class InicioSesion extends javax.swing.JFrame {
         // TODO add your handling code here:
         ojoHide.setVisible(true);
         ojoshow.setVisible(false);
-        pssword.setEchoChar((char)0);
+        pssword.setEchoChar((char) 0);
     }//GEN-LAST:event_ojoshowMousePressed
 
     private void ojoHideMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ojoHideMousePressed
@@ -149,6 +185,10 @@ public class InicioSesion extends javax.swing.JFrame {
         ojoHide.setVisible(false);
         pssword.setEchoChar('*');
     }//GEN-LAST:event_ojoHideMousePressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JOptionPane.showMessageDialog(null, "Ingresa usuario: admin\ncontraseña: admin", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,6 +227,7 @@ public class InicioSesion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_aceptar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
