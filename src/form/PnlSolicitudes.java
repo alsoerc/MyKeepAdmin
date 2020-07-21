@@ -5,13 +5,20 @@ import java.awt.FontFormatException;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import api.ClienteApartado;
+import api.ClienteEquipos;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 import models.Apartado;
+import models.Equipo;
 
 public class PnlSolicitudes extends javax.swing.JPanel {
 
     Fuentes tipoDeFuentes;
     private DefaultTableModel modelo;
     private ClienteApartado api;
+    private ClienteEquipos apiEquipo;
+    private List<Apartado> data;
 
     /**
      * Creates new form Panel1
@@ -26,6 +33,7 @@ public class PnlSolicitudes extends javax.swing.JPanel {
         tablaSolicitudes.setFont(tipoDeFuentes.fuente(tipoDeFuentes.quickMedium, 0, 15));
         tablaSolicitudes.setModel(modelo);
         fetchAparts();
+        validarId();
     }
 
     /**
@@ -43,6 +51,8 @@ public class PnlSolicitudes extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         btnCancel = new rsbuttom.RSButtonMetro();
         btnUpdate = new rsbuttom.RSButtonMetro();
+        txtId = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaSolicitudes = new javax.swing.JTable();
@@ -71,14 +81,14 @@ public class PnlSolicitudes extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnCancel.setText("Terminar préstamo");
+        btnCancel.setText("Cancelar solicitud");
         btnCancel.setFont(new java.awt.Font("Quicksand-Regular.ttf", 1, 12)); // NOI18N
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 160, -1));
+        jPanel1.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 160, -1));
 
         btnUpdate.setText("Actualizar lista");
         btnUpdate.setFont(new java.awt.Font("Quicksand-Regular.ttf", 1, 12)); // NOI18N
@@ -87,7 +97,23 @@ public class PnlSolicitudes extends javax.swing.JPanel {
                 btnUpdateActionPerformed(evt);
             }
         });
-        jPanel1.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 160, -1));
+        jPanel1.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 160, -1));
+
+        txtId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdActionPerformed(evt);
+            }
+        });
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtIdKeyPressed(evt);
+            }
+        });
+        jPanel1.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 80, -1));
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel1.setText("Id de préstamo");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, -1, -1));
 
         jPanel4.setLayout(new java.awt.BorderLayout());
 
@@ -146,7 +172,19 @@ public class PnlSolicitudes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        // TODO add your handling code here:
+        if (txtId.getText().length() >= 1) {
+            for (Apartado d : data) {
+                if (d.getIdApartado() == Integer.parseInt(txtId.getText())) {
+                    updateStatusApartado(Integer.parseInt(txtId.getText()));
+                    updateStatusEquipo(d.getIdApartado());
+                    break;
+                }else{
+                    
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un id", "Aviso", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -154,12 +192,60 @@ public class PnlSolicitudes extends javax.swing.JPanel {
         fetchAparts();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdActionPerformed
+
+    private void txtIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyPressed
+
+    }//GEN-LAST:event_txtIdKeyPressed
+
+    private void validarId() {
+        txtId.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent ke) {
+                if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == ke.VK_BACK_SPACE) {
+                    txtId.setEditable(true);
+                } else {
+                    txtId.setEditable(false);
+                }
+            }
+        });
+    }
+
     private void resetTable() {
         modelo.setRowCount(0);
     }
 
+    private void updateStatusEquipo(int id){
+        Equipo oneEquipo = getOneEquipo(id);
+        oneEquipo.setEstado("DISPONIBLE");
+        apiEquipo.update(oneEquipo);
+    }
+    
+    private Equipo getOneEquipo(int id){
+        return apiEquipo.getOneByID(Equipo.class, id);
+    }
+    
+    private void updateStatusApartado(int id) {
+        Apartado ap = getOne(id);
+        ap.setEstado("CANCELADO");
+        if (api.update(ap) != "") {
+            JOptionPane.showMessageDialog(null, "Registro cancelado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            resetTable();
+            fetchAparts();
+            txtId.setText("");
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al cancelar", "Aviso", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+    private Apartado getOne(int id) {
+        return api.getOneByID(Apartado.class, id);
+    }
+
     private void fetchAparts() {
-        List<Apartado> data = api.getAll();
+        data = api.getAll();
         for (Apartado d : data) {
             if (d.getEstado().equals("PENDIENTE")) {
                 modelo.addRow(new Object[]{d.getIdApartado(), d.getMatricula(), d.getGrupo(),
@@ -172,6 +258,7 @@ public class PnlSolicitudes extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnCancel;
     private rsbuttom.RSButtonMetro btnUpdate;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelSolicitudesPrestamos;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -179,5 +266,6 @@ public class PnlSolicitudes extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panelLista;
     private javax.swing.JTable tablaSolicitudes;
+    private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
 }

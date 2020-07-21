@@ -8,6 +8,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import api.ClienteEquipos;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import models.Equipo;
 
 public class PnlTiposDeInventario extends javax.swing.JPanel {
@@ -30,10 +32,8 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
         jLabelSolicitudesPrestamos.setFont(tipoDeFuentes.fuente(tipoDeFuentes.quickBold, 0, 17));
         api = new ClienteEquipos();
         getInventario();
-
-        lId.setVisible(false);
-        txtId.setVisible(false);
-        btnDelete.setVisible(false);
+        validarId();
+        ocultar();
     }
 
     public void holders() {
@@ -54,14 +54,18 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
         pnlDatosIngresar = new javax.swing.JPanel();
         txtBuscarPorSerialEnLista = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        lId = new javax.swing.JLabel();
+        labelid = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         btnDelete = new rsbuttom.RSButtonMetro();
         btnListar = new rsbuttom.RSButtonMetro();
         btnEliminar = new rsbuttom.RSButtonMetro();
         btnEditar1 = new rsbuttom.RSButtonMetro();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
+        txtSerial = new javax.swing.JTextField();
+        labelserial = new javax.swing.JLabel();
+        txtEstado = new javax.swing.JTextField();
+        labelestado = new javax.swing.JLabel();
+        btnActualizar = new rsbuttom.RSButtonMetro();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaSolicitudes = new javax.swing.JTable();
 
@@ -101,18 +105,18 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
         });
         pnlDatosIngresar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, -1, 41));
 
-        lId.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        lId.setText("ID");
-        pnlDatosIngresar.add(lId, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 50, -1));
-        pnlDatosIngresar.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 92, -1));
+        labelid.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        labelid.setText("ID");
+        pnlDatosIngresar.add(labelid, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 50, -1));
+        pnlDatosIngresar.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 92, -1));
 
-        btnDelete.setText("Confirmar");
+        btnDelete.setText("Eliminar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
             }
         });
-        pnlDatosIngresar.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 90, 26));
+        pnlDatosIngresar.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 90, 26));
 
         btnListar.setText("Actualizar lista");
         btnListar.addActionListener(new java.awt.event.ActionListener() {
@@ -137,12 +141,26 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
             }
         });
         pnlDatosIngresar.add(btnEditar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 130, 26));
+        pnlDatosIngresar.add(txtSerial, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 92, -1));
 
-        jScrollPane1.setBackground(java.awt.Color.white);
-        jScrollPane1.setBorder(null);
-        jScrollPane1.setToolTipText("");
+        labelserial.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        labelserial.setText("SERIAL");
+        pnlDatosIngresar.add(labelserial, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 60, -1));
+        pnlDatosIngresar.add(txtEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 92, -1));
 
-        jLayeredPane1.setBackground(new java.awt.Color(255, 255, 255));
+        labelestado.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        labelestado.setText("ESTADO");
+        pnlDatosIngresar.add(labelestado, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 70, -1));
+
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+        pnlDatosIngresar.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 90, 26));
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
 
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -193,55 +211,39 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
         tablaSolicitudes.setSelectionBackground(new java.awt.Color(204, 204, 255));
         jScrollPane2.setViewportView(tablaSolicitudes);
 
-        jLayeredPane1.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 891, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
-        );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(287, Short.MAX_VALUE))
-        );
-
-        jScrollPane1.setViewportView(jLayeredPane1);
+        jPanel1.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabelSolicitudesPrestamos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnlDatosIngresar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 976, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 913, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+            .addComponent(pnlDatosIngresar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabelSolicitudesPrestamos, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlDatosIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlDatosIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         if (txtId.getText() != "") {
             if (api.deleteOne(Equipo.class, Integer.parseInt(txtId.getText())) != null) {
-                JOptionPane.showMessageDialog(null, "Eliminado con éxito registro con Id:" + txtId.getText());
-                esconderData();
+                JOptionPane.showMessageDialog(null, "Registro eliminado con éxito");
+                cleanTable();
+                getInventario();
+                ocultar();
+                txtId.setText("");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Ingrese un id válido");
@@ -250,34 +252,80 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void esconderData(){
-        txtId.setText("");
-        lId.setVisible(false);
-        txtId.setVisible(false);
-        btnDelete.setVisible(false);
-        
-    }
-    
+ 
+
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         cleanTable();
         getInventario();
 
     }//GEN-LAST:event_btnListarActionPerformed
 
+    
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        lId.setVisible(true);
-        txtId.setVisible(true);
-        btnDelete.setVisible(true);
-
+        txtId.setEnabled(true);
+        btnDelete.setEnabled(true);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
-        // TODO add your handling code here:
+        mostrar();
     }//GEN-LAST:event_btnEditar1ActionPerformed
 
     private void jLabel1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel1KeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel1KeyTyped
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        if (updateEquipo(Integer.parseInt(txtId.getText()), txtEstado.getText(), txtSerial.getText())) {
+            JOptionPane.showMessageDialog(null, "Registro actualizado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            cleanTable();
+            getInventario();
+            ocultar();
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private boolean updateEquipo(int id, String estado, String Serial) {
+        boolean isValid = false;
+        Equipo oneEquipo = getOneEquipo(id);
+        oneEquipo.setIdEquipo(id);
+        oneEquipo.setEstado(estado);
+        oneEquipo.setSerial(Serial.toUpperCase());
+        if (api.update(oneEquipo) != "") {
+            isValid = true;
+        }
+        return isValid;
+    }
+
+    private Equipo getOneEquipo(int id) {
+        return api.getOneByID(Equipo.class, id);
+    }
+
+    private void validarId() {
+        txtId.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent ke) {
+                if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == ke.VK_BACK_SPACE) {
+                    txtId.setEditable(true);
+                } else {
+                    txtId.setEditable(false);
+                }
+            }
+        });
+    }
+
+    private void ocultar() {
+        txtId.setEnabled(false);
+        txtEstado.setEnabled(false);
+        txtSerial.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        btnDelete.setEnabled(false);
+    }
+
+    private void mostrar() {
+        txtId.setEnabled(true);
+        txtEstado.setEnabled(true);
+        txtSerial.setEnabled(true);
+        btnActualizar.setEnabled(true);
+        btnDelete.setEnabled(true);
+    }
 
     private void getInventario() {
         List<Equipo> listaEquipos = api.getAll();
@@ -309,40 +357,30 @@ public class PnlTiposDeInventario extends javax.swing.JPanel {
     }
 
     private void cleanTable() {
+        txtId.setText("");
         modelo.setRowCount(0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rsbuttom.RSButtonMetro btnActualizar;
     private rsbuttom.RSButtonMetro btnDelete;
     private rsbuttom.RSButtonMetro btnEditar1;
     private rsbuttom.RSButtonMetro btnEliminar;
     private rsbuttom.RSButtonMetro btnListar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelSolicitudesPrestamos;
-    private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JLayeredPane jLayeredPane2;
-    private javax.swing.JLayeredPane jLayeredPane3;
-    private javax.swing.JLayeredPane jLayeredPane4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JLabel lId;
-    private javax.swing.JPanel panelLista;
-    private javax.swing.JPanel panelLista1;
-    private javax.swing.JPanel panelLista2;
+    private javax.swing.JLabel labelestado;
+    private javax.swing.JLabel labelid;
+    private javax.swing.JLabel labelserial;
     private javax.swing.JPanel pnlDatosIngresar;
     private javax.swing.JTable tablaSolicitudes;
-    private javax.swing.JTable tablaSolicitudes1;
-    private javax.swing.JTable tablaSolicitudes2;
-    private javax.swing.JTable tablaSolicitudes3;
     private javax.swing.JTextField txtBuscarPorSerialEnLista;
+    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtSerial;
     // End of variables declaration//GEN-END:variables
 
 }

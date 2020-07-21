@@ -44,7 +44,7 @@ public class ClienteEquipos {
         return webTarget.path(java.text.MessageFormat.format("{0}", new Object[]{id})).request().delete(String.class);
     }
 
-    public <T> T getOneByID(Class<T> responseType, String id) throws ClientErrorException {
+    public <T> T getOneByID(Class<T> responseType, int id) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{id}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
